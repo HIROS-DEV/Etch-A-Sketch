@@ -5,6 +5,15 @@
 // => using Css and create Grid in HTML file(I think flexbox or CSS Grid is suitable for job)
 // => Perhaps, grid width and height should be decided in advance
 
+//TODO: 2. create hover effect
+// => I think mouse enter or mouse leave or mouse over event is useful (But, it needs google)
+// => if mouse hover in grid, grid have to change color. So, background of the grid change
+
+// TODO: 3. create Grid button
+// => On page top, create button. When button click, popup shows and asking for the number of squares per side for the new grid.
+// => Existing grid should reset (or removed) and create new grid
+// => Grid number should be decided in advance (ex. max 100 x 100)
+
 const containerDiv = document.createElement('div');
 const gridDiv = document.createElement('div');
 const body = document.querySelector('body');
@@ -14,22 +23,22 @@ let numberOfSquares = 16;
 
 function resetGrid() {
 	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
-        const removeItems = document.querySelector(`[data-key="${i}"]`);
-        gridDiv.removeChild(removeItems);
+		const removeItems = document.querySelector(`[data-key="${i}"]`);
+		gridDiv.removeChild(removeItems);
 	}
 }
 
 function setGrid() {
-    resetGrid();
+	resetGrid();
 
 	numberOfSquares = prompt(
 		'Please enter the number of squares per side. \nex. If you enter 16, 16 x 16 grid will create.',
 		16
 	);
 
-	while (numberOfSquares > 100) {
+	while (numberOfSquares > 100 || !numberOfSquares) {
 		numberOfSquares = prompt(
-			'Sorry, maximum number is 100. Please enter the number again',
+			'Sorry, minimum number is 1 and maximum number is 100.\n Please enter the number again',
 			16
 		);
 	}
@@ -37,6 +46,16 @@ function setGrid() {
 	numberOfSquares = +numberOfSquares;
 
 	createGrid();
+}
+
+function createDefaultGrid() {
+	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
+		const gridCell = document.createElement('div');
+		gridDiv.style.cssText = `grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(16, 1fr);`;
+		gridCell.classList.add(`grid-cell`);
+		gridCell.dataset.key = i;
+		gridDiv.appendChild(gridCell);
+	}
 }
 
 function createGrid() {
@@ -49,6 +68,11 @@ function createGrid() {
 	}
 }
 
+function changeBackGroundColor(e) {
+	let target = e.target;
+	target.style.background = 'pink';
+}
+
 containerDiv.classList.add('container');
 gridDiv.classList.add('grid');
 
@@ -57,22 +81,9 @@ containerDiv.appendChild(gridDiv);
 
 newGridBtn.addEventListener('click', setGrid);
 
-for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
-	const gridCell = document.createElement('div');
-	gridDiv.style.cssText = `grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(16, 1fr);`;
-	gridCell.classList.add(`grid-cell`);
-	gridCell.dataset.key = i;
-	gridDiv.appendChild(gridCell);
-}
+gridDiv.addEventListener('mouseover', changeBackGroundColor);
 
-//TODO: 2. create hover effect
-// => I think mouse enter or mouse leave or mouse over event is useful (But, it needs google)
-// => if mouse hover in grid, grid have to change color. So, background of the grid change
-
-// TODO: 3. create Grid button
-// => On page top, create button. When button click, popup shows and asking for the number of squares per side for the new grid.
-// => Existing grid should reset (or removed) and create new grid
-// => Grid number should be decided in advance (ex. max 100 x 100)
+createDefaultGrid();
 
 // TODO: Extra
 // => Instead of just changing the color of a square from black to white (for example), have each pass through with the mouse change it to a completely random RGB value.
