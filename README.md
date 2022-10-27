@@ -6,6 +6,10 @@ This is the Javascript foundations course in the Odin Project(URL:https://www.th
 
 In this lesson, I have to create a browser version of something between a sketchpad and an Etch-A-Sketch. (Of course, I have to use HTML / CSS / JavaScript)
 
+# Web URL
+
+Web Page: https://hiros-dev.github.io/Etch-A-Sketch/
+
 # Screen Shot
 
 <img src="./screen.png"/>
