@@ -3,7 +3,6 @@ const gridDiv = document.createElement('div');
 
 const body = document.querySelector('body');
 const newGridBtn = document.querySelector('.new-grid');
-const randomRGBBtn = document.querySelector('.random-color');
 const defaultColorBtn = document.querySelector('.default-color');
 const colorPicker = document.querySelector('.pick-color');
 const resetBtn = document.querySelector('.reset');
@@ -123,7 +122,6 @@ body.appendChild(containerDiv);
 containerDiv.appendChild(gridDiv);
 
 newGridBtn.addEventListener('click', setGrid);
-randomRGBBtn.addEventListener('click', setRandomColor);
 rainbowBtn.addEventListener('click', setRainbowColor);
 defaultColorBtn.addEventListener('click', setDefaultColor);
 resetBtn.addEventListener('click', backToDefaultGrid);
