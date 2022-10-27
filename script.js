@@ -1,22 +1,3 @@
-//TODO: 1. create a webpage with 16 x 16 grid of square divs
-// => create div using JavaScript (using createElement and add class name "container")
-// => create another div using JavaScript(using createElement and add class name "grid")
-// => attach the grid div inside the container div
-// => using Css and create Grid in HTML file(I think flexbox or CSS Grid is suitable for job)
-// => Perhaps, grid width and height should be decided in advance
-
-//TODO: 2. create hover effect
-// => I think mouse enter or mouse leave or mouse over event is useful (But, it needs google)
-// => if mouse hover in grid, grid have to change color. So, background of the grid change
-
-// TODO: 3. create Grid button
-// => On page top, create button. When button click, popup shows and asking for the number of squares per side for the new grid.
-// => Existing grid should reset (or removed) and create new grid
-// => Grid number should be decided in advance (ex. max 100 x 100)
-
-// TODO: Extra
-// => Instead of just changing the color of a square from black to white (for example), have each pass through with the mouse change it to a completely random RGB value.
-
 const containerDiv = document.createElement('div');
 const gridDiv = document.createElement('div');
 
@@ -26,11 +7,16 @@ const randomRGBBtn = document.querySelector('.random-color');
 const defaultColorBtn = document.querySelector('.default-color');
 const colorPicker = document.querySelector('.pick-color');
 const resetBtn = document.querySelector('.reset');
+const rainbowBtn = document.querySelector('.rainbow');
 
-let backgroundColor = 'black';
+let backgroundColor = 'pink';
+let rainbowColor = false;
 let numberOfSquares = 16;
 
 function resetGrid() {
+    rainbowColor = false;
+    backgroundColor = 'pink';
+
 	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
 		const removeItems = document.querySelector(`[data-key="${i}"]`);
 		gridDiv.removeChild(removeItems);
@@ -38,18 +24,22 @@ function resetGrid() {
 }
 
 function backToDefaultGrid() {
+	rainbowColor = false;
+
 	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
 		const removeItems = document.querySelector(`[data-key="${i}"]`);
 		gridDiv.removeChild(removeItems);
-    }
-    
-    numberOfSquares = 16;
-    colorPicker.value = "#000000";
-    backgroundColor = 'black';
+	}
+
+	numberOfSquares = 16;
+	colorPicker.value = '#000000';
+	backgroundColor = 'pink';
 	createGrid();
 }
 
 function setGrid() {
+	rainbowColor = false;
+
 	resetGrid();
 
 	numberOfSquares = prompt(
@@ -70,6 +60,8 @@ function setGrid() {
 }
 
 function createDefaultGrid() {
+	rainbowColor = false;
+
 	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
 		const gridCell = document.createElement('div');
 		gridDiv.style.cssText = `grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(16, 1fr);`;
@@ -80,6 +72,7 @@ function createDefaultGrid() {
 }
 
 function createGrid() {
+	rainbowColor = false;
 	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
 		const gridCell = document.createElement('div');
 		gridDiv.style.cssText = `grid-template-columns: repeat(${numberOfSquares}, 1fr); grid-template-rows: repeat(${numberOfSquares}, 1fr);`;
@@ -91,10 +84,16 @@ function createGrid() {
 
 function changeBackGroundColor(e) {
 	let target = e.target;
+
+	if (rainbowColor) {
+		setRandomColor();
+	}
+
 	target.style.background = backgroundColor;
 }
 
 function setPickerColor(e) {
+	rainbowColor = false;
 	backgroundColor = e.target.value;
 }
 
@@ -108,8 +107,13 @@ function setRandomColor() {
 	backgroundColor = `${rgb}`;
 }
 
+function setRainbowColor() {
+	rainbowColor = true;
+}
+
 function setDefaultColor() {
-	backgroundColor = 'black';
+	rainbowColor = false;
+	backgroundColor = 'pink';
 }
 
 containerDiv.classList.add('container');
@@ -120,6 +124,7 @@ containerDiv.appendChild(gridDiv);
 
 newGridBtn.addEventListener('click', setGrid);
 randomRGBBtn.addEventListener('click', setRandomColor);
+rainbowBtn.addEventListener('click', setRainbowColor);
 defaultColorBtn.addEventListener('click', setDefaultColor);
 resetBtn.addEventListener('click', backToDefaultGrid);
 
@@ -127,3 +132,24 @@ colorPicker.addEventListener('input', setPickerColor);
 gridDiv.addEventListener('mouseover', changeBackGroundColor);
 
 createDefaultGrid();
+
+// This is pseudoCode for this project. (You do not need to read the text)
+
+//TODO: 1. create a webpage with 16 x 16 grid of square divs
+// => create div using JavaScript (using createElement and add class name "container")
+// => create another div using JavaScript(using createElement and add class name "grid")
+// => attach the grid div inside the container div
+// => using Css and create Grid in HTML file(I think flexbox or CSS Grid is suitable for job)
+// => Perhaps, grid width and height should be decided in advance
+
+//TODO: 2. create hover effect
+// => I think mouse enter or mouse leave or mouse over event is useful (But, it needs google)
+// => if mouse hover in grid, grid have to change color. So, background of the grid change
+
+// TODO: 3. create Grid button
+// => On page top, create button. When button click, popup shows and asking for the number of squares per side for the new grid.
+// => Existing grid should reset (or removed) and create new grid
+// => Grid number should be decided in advance (ex. max 100 x 100)
+
+// TODO: Extra
+// => Instead of just changing the color of a square from black to white (for example), have each pass through with the mouse change it to a completely random RGB value.
