@@ -13,23 +13,23 @@ let backgroundColor = 'pink';
 let rainbowColor = false;
 let numberOfSquares = 16;
 
-function resetGrid() {
-    rainbowColor = false;
-    backgroundColor = 'pink';
-
+function removeCellsFromGrid() {
 	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
 		const removeItems = document.querySelector(`[data-key="${i}"]`);
 		gridDiv.removeChild(removeItems);
 	}
 }
 
+function resetGrid() {
+	rainbowColor = false;
+	backgroundColor = 'pink';
+	removeCellsFromGrid();
+}
+
 function backToDefaultGrid() {
 	rainbowColor = false;
 
-	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
-		const removeItems = document.querySelector(`[data-key="${i}"]`);
-		gridDiv.removeChild(removeItems);
-	}
+	removeCellsFromGrid();
 
 	numberOfSquares = 16;
 	colorPicker.value = '#000000';
