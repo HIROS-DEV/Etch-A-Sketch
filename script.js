@@ -14,11 +14,18 @@
 // => Existing grid should reset (or removed) and create new grid
 // => Grid number should be decided in advance (ex. max 100 x 100)
 
+// TODO: Extra
+// => Instead of just changing the color of a square from black to white (for example), have each pass through with the mouse change it to a completely random RGB value.
+
 const containerDiv = document.createElement('div');
 const gridDiv = document.createElement('div');
 const body = document.querySelector('body');
-const newGridBtn = document.querySelector('button');
+const newGridBtn = document.querySelector('.new-grid');
+const randomRGBBtn = document.querySelector('.random-color');
+const defaultColorBtn = document.querySelector('.default-color');
+const colorPicker = document.querySelector('.pick-color');
 
+let backgroundColor = 'pink';
 let numberOfSquares = 16;
 
 function resetGrid() {
@@ -70,7 +77,25 @@ function createGrid() {
 
 function changeBackGroundColor(e) {
 	let target = e.target;
-	target.style.background = 'pink';
+	target.style.background = backgroundColor;
+}
+
+function setPickerColor(e) {
+    backgroundColor = e.target.value;
+}
+
+function setRandomColor() {
+	const randomBetween = (min, max) =>
+		min + Math.floor(Math.random() * (max - min + 1));
+	const r = randomBetween(0, 255);
+	const g = randomBetween(0, 255);
+	const b = randomBetween(0, 255);
+	const rgb = `rgb(${r},${g},${b})`;
+	backgroundColor = `${rgb}`;
+}
+
+function setDefaultColor() {
+	backgroundColor = 'pink';
 }
 
 containerDiv.classList.add('container');
@@ -80,10 +105,10 @@ body.appendChild(containerDiv);
 containerDiv.appendChild(gridDiv);
 
 newGridBtn.addEventListener('click', setGrid);
+randomRGBBtn.addEventListener('click', setRandomColor);
+defaultColorBtn.addEventListener('click', setDefaultColor);
+colorPicker.addEventListener('input', setPickerColor);
 
 gridDiv.addEventListener('mouseover', changeBackGroundColor);
 
 createDefaultGrid();
-
-// TODO: Extra
-// => Instead of just changing the color of a square from black to white (for example), have each pass through with the mouse change it to a completely random RGB value.

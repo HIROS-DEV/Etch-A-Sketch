@@ -16,12 +16,33 @@ h1 {
 	margin-top: 20px;
 }
 
+input[type="color"] {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
 button {
 	padding: 10px;
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, 0%);
     text-transform: uppercase;
+	cursor: pointer;
 }
 
 .container {
