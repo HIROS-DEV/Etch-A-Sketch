@@ -19,13 +19,15 @@
 
 const containerDiv = document.createElement('div');
 const gridDiv = document.createElement('div');
+
 const body = document.querySelector('body');
 const newGridBtn = document.querySelector('.new-grid');
 const randomRGBBtn = document.querySelector('.random-color');
 const defaultColorBtn = document.querySelector('.default-color');
 const colorPicker = document.querySelector('.pick-color');
+const resetBtn = document.querySelector('.reset');
 
-let backgroundColor = 'pink';
+let backgroundColor = 'black';
 let numberOfSquares = 16;
 
 function resetGrid() {
@@ -33,6 +35,18 @@ function resetGrid() {
 		const removeItems = document.querySelector(`[data-key="${i}"]`);
 		gridDiv.removeChild(removeItems);
 	}
+}
+
+function backToDefaultGrid() {
+	for (let i = 1; i <= numberOfSquares * numberOfSquares; i++) {
+		const removeItems = document.querySelector(`[data-key="${i}"]`);
+		gridDiv.removeChild(removeItems);
+    }
+    
+    numberOfSquares = 16;
+    colorPicker.value = "#000000";
+    backgroundColor = 'black';
+	createGrid();
 }
 
 function setGrid() {
@@ -81,7 +95,7 @@ function changeBackGroundColor(e) {
 }
 
 function setPickerColor(e) {
-    backgroundColor = e.target.value;
+	backgroundColor = e.target.value;
 }
 
 function setRandomColor() {
@@ -95,7 +109,7 @@ function setRandomColor() {
 }
 
 function setDefaultColor() {
-	backgroundColor = 'pink';
+	backgroundColor = 'black';
 }
 
 containerDiv.classList.add('container');
@@ -107,8 +121,9 @@ containerDiv.appendChild(gridDiv);
 newGridBtn.addEventListener('click', setGrid);
 randomRGBBtn.addEventListener('click', setRandomColor);
 defaultColorBtn.addEventListener('click', setDefaultColor);
-colorPicker.addEventListener('input', setPickerColor);
+resetBtn.addEventListener('click', backToDefaultGrid);
 
+colorPicker.addEventListener('input', setPickerColor);
 gridDiv.addEventListener('mouseover', changeBackGroundColor);
 
 createDefaultGrid();
